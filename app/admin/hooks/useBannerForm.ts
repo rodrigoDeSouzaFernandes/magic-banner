@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function useBannerForm() {
-  const { register, handleSubmit } = useForm<BannerFormData>({
+  const { register, handleSubmit, formState: {errors}, watch } = useForm<BannerFormData>({
     resolver: zodResolver(bannerSchema),
   });
 
@@ -11,5 +11,5 @@ export default function useBannerForm() {
     console.log(value);
   };
 
-  return { register, handleSubmit, onSubmit };
+  return { register, handleSubmit, onSubmit, errors, watch };
 }

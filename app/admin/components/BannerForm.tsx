@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { BannerPreview } from "./BannerPreview";
 import useBannerForm from "../hooks/useBannerForm";
+import TextField from "@/shared/components/TextField";
+import { useImagePreview } from "../hooks/useImagePreview";
 
 type BannerFormProps = {
   loadBanners: () => void;
 };
 
 export default function BannerForm({ loadBanners }: BannerFormProps) {
-  const { handleSubmit, onSubmit, register } = useBannerForm();
+  const { handleSubmit, onSubmit, register, errors, watch } = useBannerForm();
+
+  const banner = watch("image");
 
   return (
     <section className="rounded-2xl bg-white p-6 shadow">
@@ -18,40 +22,42 @@ export default function BannerForm({ loadBanners }: BannerFormProps) {
         className="grid grid-cols-1 gap-4 md:grid-cols-2"
       >
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium">URL da página</label>
-          <input
+          <TextField
+            label="URL da página"
             className="mt-1 w-full rounded-md border px-3 py-2 focus:outline-none focus:ring"
             placeholder="https://loja.com/produto/123"
             {...register("url")}
+            error={errors.url?.message}
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium">
-            Imagem do banner (URL)
-          </label>
-          <input
+          <TextField
+            label="Imagem do banner (URL)"
             className="mt-1 w-full rounded-md border px-3 py-2 focus:outline-none focus:ring"
             placeholder="https://cdn.com/banner.png"
             {...register("image")}
+            error={errors.image?.message}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Hora início</label>
-          <input
+          <TextField
+            label="Hora início"
             type="time"
             className="mt-1 w-full rounded-md border px-3 py-2"
             {...register("startTime")}
+            error={errors.startTime?.message}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Hora fim</label>
-          <input
+          <TextField
+            label="Hora fim"
             type="time"
             className="mt-1 w-full rounded-md border px-3 py-2"
             {...register("endTime")}
+            error={errors.endTime?.message}
           />
         </div>
 
@@ -65,13 +71,7 @@ export default function BannerForm({ loadBanners }: BannerFormProps) {
         </div>
       </form>
 
-      {/* PREVIEW
-      {form.image && (
-        <div className="mt-6 rounded-xl border bg-gray-50 p-4">
-          <p className="mb-2 text-sm font-medium text-gray-600">Preview</p>
-          <BannerPreview image={form.image} />
-        </div>
-      )} */}
+      {banner && <BannerPreview image={banner} />}
     </section>
   );
 }
