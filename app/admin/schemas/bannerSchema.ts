@@ -2,9 +2,23 @@ import * as z from "zod";
 
 export type BannerFormData = z.infer<typeof bannerSchema>;
 
-export const bannerSchema = z.object({
-  url: z.url("Este campo deve conter uma url").nonempty("Campo obrigatório"),
-  image: z.url("Este campo deve conter uma url").nonempty("Campo obrigatório"),
-  startTime: z.string(),
-  endTime: z.string(),
-});
+export const bannerSchema = z
+  .object({
+    url: z.url({
+      message: "Informe uma URL válida (ex: https://site.com/produto)",
+    }),
+
+    image: z.url({
+      message: "Informe uma URL válida de imagem",
+    }),
+
+    startTime: z.string().optional(),
+    endTime: z.string().optional(),
+  })
+  .refine(
+    (data) => !data.startTime || !data.endTime || data.startTime < data.endTime,
+    {
+      message: "O horário inicial deve ser menor que o horário final",
+      path: ["endTime"],
+    }
+  );

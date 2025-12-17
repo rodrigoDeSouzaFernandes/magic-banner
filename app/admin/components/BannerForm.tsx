@@ -1,8 +1,6 @@
-import React, { useState } from "react";
 import { BannerPreview } from "./BannerPreview";
 import useBannerForm from "../hooks/useBannerForm";
 import TextField from "@/shared/components/TextField";
-import { useImagePreview } from "../hooks/useImagePreview";
 
 type BannerFormProps = {
   loadBanners: () => void;
