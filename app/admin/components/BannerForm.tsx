@@ -1,75 +1,107 @@
 import { BannerPreview } from "./BannerPreview";
 import useBannerForm from "../hooks/useBannerForm";
-import TextField from "@/shared/components/TextField";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 type BannerFormProps = {
   loadBanners: () => void;
 };
 
 export default function BannerForm({ loadBanners }: BannerFormProps) {
-  const { handleSubmit, onSubmit, register, errors, watch } = useBannerForm();
+  const { form, onSubmit, onInvalidTime } = useBannerForm();
 
-  const banner = watch("image");
+  const banner = form.watch("image");
 
   return (
     <section className="rounded-2xl bg-white p-6 shadow">
-      <h2 className="mb-4 text-lg font-medium">Criar novo banner</h2>
-
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 gap-4 md:grid-cols-2"
-      >
-        <div className="md:col-span-2">
-          <TextField
-            label="URL da página"
-            className="mt-1 w-full rounded-md border px-3 py-2 focus:outline-none focus:ring"
-            placeholder="https://loja.com/produto/123"
-            {...register("url")}
-            error={errors.url?.message}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <FormField
+            control={form.control}
+            name="url"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>URL da página</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://loja.com/produto/123"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
 
-        <div className="md:col-span-2">
-          <TextField
-            label="Imagem do banner (URL)"
-            className="mt-1 w-full rounded-md border px-3 py-2 focus:outline-none focus:ring"
-            placeholder="https://cdn.com/banner.png"
-            {...register("image")}
-            error={errors.image?.message}
+          <FormField
+            control={form.control}
+            name="image"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Imagem do banner</FormLabel>
+                <FormControl>
+                  <Input placeholder="https://..." {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
 
-        <div>
-          <TextField
-            label="Hora início"
-            type="time"
-            className="mt-1 w-full rounded-md border px-3 py-2"
-            {...register("startTime")}
-            error={errors.startTime?.message}
-          />
-        </div>
+          {banner ? <BannerPreview image={banner} /> : null}
 
-        <div>
-          <TextField
-            label="Hora fim"
-            type="time"
-            className="mt-1 w-full rounded-md border px-3 py-2"
-            {...register("endTime")}
-            error={errors.endTime?.message}
-          />
-        </div>
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="startTime"
+              render={({ field }) => (
+                <FormItem className="items-start h-min">
+                  <FormLabel>Início</FormLabel>
+                  <FormControl>
+                    <Input
+                      onInvalid={(e) => onInvalidTime(e, "startTime")}
+                      type="time"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <div className="md:col-span-2">
-          <button
-            type="submit"
-            className="mt-2 rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-          >
-            Salvar banner
-          </button>
-        </div>
-      </form>
+            <FormField
+              control={form.control}
+              name="endTime"
+              render={({ field }) => (
+                <FormItem className="items-start h-min">
+                  <FormLabel>Fim</FormLabel>
+                  <FormControl>
+                    <Input
+                      onInvalid={(e) => onInvalidTime(e, "endTime")}
+                      type="time"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
-      {banner && <BannerPreview image={banner} />}
+          <Button type="submit" className="ml-auto">
+            Salvar Banner
+          </Button>
+        </form>
+      </Form>
     </section>
   );
 }

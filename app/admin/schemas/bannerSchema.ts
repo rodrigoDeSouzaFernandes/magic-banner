@@ -2,6 +2,8 @@ import * as z from "zod";
 
 export type BannerFormData = z.infer<typeof bannerSchema>;
 
+const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
 export const bannerSchema = z
   .object({
     url: z.url({
