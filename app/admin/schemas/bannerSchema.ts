@@ -20,7 +20,7 @@ export const bannerSchema = z
   .refine(
     (data) => !data.startTime || !data.endTime || data.startTime < data.endTime,
     {
-      message: "O horário inicial deve ser menor que o horário final",
+      message: "O horário final deve ser maior que o horário inicial",
       path: ["endTime"],
     }
   );

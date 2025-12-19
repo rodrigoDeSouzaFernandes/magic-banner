@@ -1,45 +1,29 @@
 import { useState } from "react";
-import {
-  BrokenImage,
-  HideImage,
-  Image as ImageIcon,
-} from "@mui/icons-material";
 import { useImagePreview } from "../hooks/useImagePreview";
 
 export function BannerPreview({ image }: { image: string }) {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const isImageValid = useImagePreview(image);
 
-  return (
-    <div className="mt-6 rounded-xl border bg-gray-50 p-4">
-      <div className="flex items-center">
-        <p className="text-sm font-medium text-gray-600">
-          {visible ? "Banner" : "Pré-visualizar banner"}
-        </p>
+  if (!isImageValid) return null;
 
-        <button
-          onClick={() => setVisible((v) => !v)}
-          className="ml-auto cursor-pointer rounded-sm bg-black/60 px-2 py-1 text-xs text-white hover:bg-black/80"
-          aria-label="Alternar preview"
-        >
-          {visible ? (
-            <HideImage fontSize="small" />
-          ) : (
-            <ImageIcon fontSize="small" />
-          )}
-        </button>
-      </div>
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setVisible((v) => !v)}
+        className="text-gray-600 hover:underline text-sm font-medium cursor-pointer"
+        aria-expanded={visible}
+        aria-controls="banner-preview"
+      >
+        {visible ? "Ocultar banner" : "Pré-visualizar banner"}
+      </button>
 
       {visible && (
-        <div className="mt-2 rounded-lg border bg-white shadow overflow-hidden">
-          {isImageValid ? (
-            <img src={image} alt="" className="w-full rounded" />
-          ) : (
-            <div className="flex gap-2 h-32 items-center justify-center text-sm">
-              <BrokenImage className="text-slate-600" />
-              <p className="text-slate-600">Imagem inválida ou indisponível</p>
-            </div>
-          )}
+        <div className="mt-2">
+          <div className="overflow-hidden rounded-lg border bg-white shadow">
+            <img src={image} alt="Banner preview" className="w-full" />
+          </div>
         </div>
       )}
     </div>
