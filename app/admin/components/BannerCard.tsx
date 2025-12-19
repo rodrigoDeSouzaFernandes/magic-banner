@@ -19,9 +19,9 @@ export default function BannerCard({ banner, deleteBanner }: BannerCardProps) {
   return (
     <Card
       key={banner.id}
-      className="grid grid-cols-[1fr_auto] justify-between items-center p-4 px-6 gap-y-1 height-min"
+      className="grid grid-cols-1 sm:grid-cols-[1fr_auto] justify-between sm:items-center p-4 px-6 gap-y-1 height-min"
     >
-      <CardContent className="space-y-1 p-0 overflow-hidden">
+      <CardContent className="space-y-1 p-0 overflow-hidden ">
         <p className="text-sm font-medium line-clamp-1">{banner.url}</p>
         <p className="text-xs text-gray-500">
           {banner.startTime && banner.endTime
@@ -30,20 +30,20 @@ export default function BannerCard({ banner, deleteBanner }: BannerCardProps) {
         </p>
       </CardContent>
 
-      <CardFooter className="p-0">
+      <CardFooter className="p-0 grid-row-3">
         <DeleteBannerDialog
           loading={loading}
           url={banner.url}
           onConfirm={() => confirmDeletion(banner.id)}
           trigger={
-            <Button variant="destructive" size="sm">
+            <Button variant="destructive" size="sm" className="w-full mt-4">
               Excluir
               <Trash2 />
             </Button>
           }
         />
       </CardFooter>
-      <div className="col-span-2">
+      <div className="sm:col-span-2 row-2">
         <BannerPreview image={banner.image} label="Mostrar Banner" />
       </div>
     </Card>

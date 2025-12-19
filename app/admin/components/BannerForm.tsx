@@ -17,7 +17,7 @@ import { BannerFormProps } from "../types";
 
 export default function BannerForm({ onSubmitForm }: BannerFormProps) {
   const { form, onSubmit, onInvalidTime, loading } = useBannerForm({
-    onSubmitForm
+    onSubmitForm,
   });
 
   const banner = form.watch("image");
@@ -59,7 +59,7 @@ export default function BannerForm({ onSubmitForm }: BannerFormProps) {
 
           {banner ? <BannerPreview image={banner} /> : null}
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             <FormField
               control={form.control}
               name="startTime"
@@ -101,7 +101,7 @@ export default function BannerForm({ onSubmitForm }: BannerFormProps) {
             disabled={loading}
             aria-disabled={loading}
             type="submit"
-            className="ml-auto min-w-28"
+            className="min-w-28 w-full sm:w-fit"
           >
             {loading ? (
               <>

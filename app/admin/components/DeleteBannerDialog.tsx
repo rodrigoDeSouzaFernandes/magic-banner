@@ -32,22 +32,26 @@ export function DeleteBannerDialog({
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Excluir banner?</AlertDialogTitle>
+          <AlertDialogTitle className="min-[368px]:text-left">
+            Excluir banner?
+          </AlertDialogTitle>
 
-          <AlertDialogDescription>
+          <AlertDialogDescription className="w-full min-[368px]:text-left">
             Você está prestes a excluir o banner da URL:
-            <span className="mt-2 block truncate rounded bg-muted px-2 py-1 text-xs font-mono">
+            <span className="mt-2 block rounded bg-muted px-2 py-1 text-xs font-mono break-all text-left">
               {url}
             </span>
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+        <AlertDialogFooter className="flex flex-col gap-2 min-[368px]:flex-row min-[368px]:ml-auto">
+          <AlertDialogCancel className="" disabled={loading}>
+            Cancelar
+          </AlertDialogCancel>
 
           <AlertDialogAction
             onClick={onConfirm}
-            className="bg-destructive hover:bg-destructive/90"
+            className="bg-destructive hover:bg-destructive/90 "
             disabled={loading}
             aria-disabled={loading}
           >
