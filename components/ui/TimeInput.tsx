@@ -13,10 +13,8 @@ export function TimeInput(props: React.ComponentProps<typeof Input>) {
       const hour = raw.slice(0, 2);
       const minute = raw.slice(2);
 
-      // valida hora
       if (Number(hour) > 23) return;
 
-      // valida minuto parcial
       if (minute.length === 2 && Number(minute) > 59) return;
 
       formatted = `${hour}:${minute}`;

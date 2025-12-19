@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeToggle } from "@/components/ThemeToogle";
 import BannerForm from "./components/BannerForm";
 import BannerList from "./components/BannerList";
 
@@ -16,6 +17,7 @@ export default function AdminPage() {
         <header className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold">Magic Banner · Admin</h1>
         </header>
+        <ThemeToggle />
         <BannerForm onSubmitForm={createBanner} />
         {bannerListLoading ? (
           <BannerListSkeleton />
