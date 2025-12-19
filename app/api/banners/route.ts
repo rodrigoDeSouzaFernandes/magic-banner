@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { bannerService } from "@/lib/banner.service";
 import { randomUUID } from "crypto";
+import { corsHeaders } from "@/lib/cors";
 
 export async function GET(request: Request) {
   try {
@@ -16,16 +17,16 @@ export async function GET(request: Request) {
     if (!banner) {
       return NextResponse.json(
         { error: `Nenhum banner encontrado para a URL: ${url}` },
-        { status: 404 }
+        { status: 404, headers: corsHeaders }
       );
     }
 
-    return NextResponse.json(banner);
+    return NextResponse.json(banner, { headers: corsHeaders });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
       { error: "Ocorreu um erro ao buscar o banner" },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -37,7 +38,7 @@ export async function POST(request: Request) {
     if (!body.url || !body.image) {
       return NextResponse.json(
         { error: "Campos obrigatórios ausentes: url e image" },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -46,12 +47,12 @@ export async function POST(request: Request) {
       ...body,
     });
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true }, { headers: corsHeaders });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
       { error: "Ocorreu um erro ao criar o banner" },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -64,7 +65,7 @@ export async function DELETE(request: Request) {
     if (!id) {
       return NextResponse.json(
         { error: "ID obrigatório para remover o banner" },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -72,16 +73,16 @@ export async function DELETE(request: Request) {
     if (!removed) {
       return NextResponse.json(
         { error: `Banner com ID ${id} não encontrado` },
-        { status: 404 }
+        { status: 404, headers: corsHeaders }
       );
     }
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true }, { headers: corsHeaders });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
       { error: "Ocorreu um erro ao remover o banner" },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }

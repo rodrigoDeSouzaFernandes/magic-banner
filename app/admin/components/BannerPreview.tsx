@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useImagePreview } from "../hooks/useImagePreview";
 
+type BannerPreviewProps = {
+  image: string;
+  label?: string;
+};
+
 export function BannerPreview({
   image,
   label = "Pré-vizualizar Banner",
-}: {
-  image: string;
-  label?: string;
-}) {
+}: BannerPreviewProps) {
   const [visible, setVisible] = useState(false);
   const isImageValid = useImagePreview(image);
 
