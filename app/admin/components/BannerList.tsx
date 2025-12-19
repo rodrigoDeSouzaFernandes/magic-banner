@@ -12,7 +12,11 @@ export default function BannerList({ banners, deleteBanner }: BannerListProps) {
 
       <div className="space-y-4">
         {banners.map((banner) => (
-          <BannerCard banner={banner} deleteBanner={deleteBanner} />
+          <BannerCard
+            key={banner.id}
+            banner={banner}
+            deleteBanner={deleteBanner}
+          />
         ))}
       </div>
     </section>

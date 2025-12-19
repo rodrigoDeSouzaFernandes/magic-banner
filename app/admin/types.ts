@@ -1,10 +1,9 @@
-// Tipos específicos para o módulo admin
-import { Banner, BannerId } from "@/lib/banner.types";
+import { Banner, BannerId, CreateBannerRequest } from "@/lib/banner.types";
 
 export type TimeInputName = "startTime" | "endTime";
 
 export type UseBannerFormProps = {
-  loadBanners: () => void;
+  onSubmitForm: (data: CreateBannerRequest) => Promise<void>;
 };
 
 export type BannerListProps = {
@@ -13,7 +12,7 @@ export type BannerListProps = {
 };
 
 export type BannerFormProps = {
-  loadBanners: () => void;
+  onSubmitForm: (data: CreateBannerRequest) => Promise<void>;
 };
 
 export type BannerPreviewProps = {

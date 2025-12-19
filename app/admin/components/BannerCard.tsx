@@ -1,11 +1,21 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BannerPreview } from "./BannerPreview";
-import { Banner } from "@/lib/banner.types";
 import { BannerCardProps } from "../types";
 import { Trash2 } from "lucide-react";
+import { DeleteBannerDialog } from "./DeleteBannerDialog";
+import { useState } from "react";
+import { BannerId } from "@/lib/banner.types";
 
 export default function BannerCard({ banner, deleteBanner }: BannerCardProps) {
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const confirmDeletion = async (id: BannerId) => {
+    setLoading(true);
+    await deleteBanner(id);
+    setLoading(false);
+  };
+
   return (
     <Card
       key={banner.id}
@@ -21,14 +31,17 @@ export default function BannerCard({ banner, deleteBanner }: BannerCardProps) {
       </CardContent>
 
       <CardFooter className="p-0">
-        <Button
-          variant="destructive"
-          size="sm"
-          onClick={() => deleteBanner(banner.id)}
-        >
-          Excluir
-          <Trash2 />
-        </Button>
+        <DeleteBannerDialog
+          loading={loading}
+          url={banner.url}
+          onConfirm={() => confirmDeletion(banner.id)}
+          trigger={
+            <Button variant="destructive" size="sm">
+              Excluir
+              <Trash2 />
+            </Button>
+          }
+        />
       </CardFooter>
       <div className="col-span-2">
         <BannerPreview image={banner.image} label="Mostrar Banner" />

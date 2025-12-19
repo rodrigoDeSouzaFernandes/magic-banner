@@ -42,5 +42,7 @@ export interface IBannerService {
 }
 
 export interface IBannerApi {
-  create(data: CreateBannerRequest): Promise<Response>;
+  create(data: CreateBannerRequest): Promise<void>;
+  list(): Promise<Banner[]>;
+  delete(id: BannerId): Promise<void>;
 }

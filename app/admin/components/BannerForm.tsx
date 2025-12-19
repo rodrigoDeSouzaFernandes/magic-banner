@@ -15,9 +15,9 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { BannerFormProps } from "../types";
 
-export default function BannerForm({ loadBanners }: BannerFormProps) {
+export default function BannerForm({ onSubmitForm }: BannerFormProps) {
   const { form, onSubmit, onInvalidTime, loading } = useBannerForm({
-    loadBanners,
+    onSubmitForm
   });
 
   const banner = form.watch("image");

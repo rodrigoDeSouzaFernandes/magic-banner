@@ -1,27 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import BannerForm from "./components/BannerForm";
 import BannerList from "./components/BannerList";
-import { Banner, BannerId } from "@/lib/banner.types";
+
+import BannerListSkeleton from "./components/BannerListSkeleton";
+import { useAdminPage } from "./hooks/useAdminPage";
 
 export default function AdminPage() {
-  const [banners, setBanners] = useState<Banner[]>([]);
-
-  async function loadBanners() {
-    const res = await fetch("/api/banners");
-    const data: Banner[] = await res.json();
-    setBanners(data as Banner[]);
-  }
-
-  useEffect(() => {
-    loadBanners();
-  }, []);
-
-  async function deleteBanner(id: BannerId) {
-    await fetch(`/api/banners?id=${id}`, { method: "DELETE" });
-    loadBanners();
-  }
+  const {
+    bannerListLoading,
+    banners,
+    deleteBanner,
+    createBanner,
+  } = useAdminPage();
 
   return (
     <main className="min-h-screen bg-gray-100 p-8 text-gray-900">
@@ -29,8 +20,15 @@ export default function AdminPage() {
         <header className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold">Magic Banner · Admin</h1>
         </header>
-        <BannerForm loadBanners={loadBanners} />
-        <BannerList banners={banners} deleteBanner={deleteBanner} />
+        <BannerForm onSubmitForm={createBanner} />
+        {bannerListLoading ? (
+          <BannerListSkeleton />
+        ) : (
+          <BannerList
+            banners={banners}
+            deleteBanner={deleteBanner}
+          />
+        )}
       </div>
     </main>
   );

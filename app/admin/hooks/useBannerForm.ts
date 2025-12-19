@@ -1,12 +1,13 @@
 import { bannerSchema, type BannerFormData } from "../schemas/bannerSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { bannerApi, convertFormDataToRequest } from "../services/banner.api";
+import { convertFormDataToRequest } from "../services/banner.api";
 import { FormEvent, useState } from "react";
-import { toast } from "sonner";
 import { TimeInputName, UseBannerFormProps } from "../types";
 
-export default function useBannerForm({ loadBanners }: UseBannerFormProps) {
+export default function useBannerForm({
+  onSubmitForm,
+}: UseBannerFormProps) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<BannerFormData>({
@@ -24,21 +25,9 @@ export default function useBannerForm({ loadBanners }: UseBannerFormProps) {
 
     const requestData = convertFormDataToRequest(value);
 
-    await bannerApi
-      .create(requestData)
-      .then(async (res) => {
-        const data = await res.json();
-
-        if (!data.ok) {
-          throw new Error(data.error || "Erro desconhecido");
-        }
-
-        await loadBanners();
-
-        toast.success("Banner criado com sucesso");
-      })
-      .catch((error) => {
-        toast.error(error.message);
+    await onSubmitForm(requestData)
+      .then(async () => {
+        form.reset();
       })
       .finally(() => {
         setLoading(false);
