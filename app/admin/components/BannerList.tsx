@@ -1,4 +1,4 @@
-import { Banner } from "@/lib/banner.types";
+import { Banner, BannerId } from "@/lib/banner.types";
 import {
   Card,
   CardContent,
@@ -6,11 +6,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BannerPreview } from "./BannerPreview";
-
-type BannerListProps = {
-  banners: Banner[];
-  deleteBanner: (id: string) => void;
-};
+import { BannerListProps } from "../types";
 
 export default function BannerList({ banners, deleteBanner }: BannerListProps) {
   return (

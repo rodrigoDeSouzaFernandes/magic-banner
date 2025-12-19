@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { useImagePreview } from "../hooks/useImagePreview";
-
-type BannerPreviewProps = {
-  image: string;
-  label?: string;
-};
+import { BannerPreviewProps } from "../types";
 
 export function BannerPreview({
   image,

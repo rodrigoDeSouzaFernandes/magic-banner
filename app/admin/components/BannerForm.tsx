@@ -12,11 +12,8 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2, LoaderCircle } from "lucide-react";
-
-type BannerFormProps = {
-  loadBanners: () => void;
-};
+import { Loader2 } from "lucide-react";
+import { BannerFormProps } from "../types";
 
 export default function BannerForm({ loadBanners }: BannerFormProps) {
   const { form, onSubmit, onInvalidTime, loading } = useBannerForm({

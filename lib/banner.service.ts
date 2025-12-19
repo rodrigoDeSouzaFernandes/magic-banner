@@ -1,4 +1,4 @@
-import { Banner } from "./banner.types";
+import { Banner, Url, BannerId } from "./banner.types";
 import { bannerRepository } from "./banner.repository";
 
 function isWithinTime(banner: Banner): boolean {
@@ -17,7 +17,7 @@ function isWithinTime(banner: Banner): boolean {
 }
 
 export const bannerService = {
-  getByUrl(url: string): Banner | null {
+  getByUrl(url: Url): Banner | null {
     const banners = bannerRepository.findAll();
     return banners.find(b => b.url === url && isWithinTime(b)) ?? null;
   },
@@ -26,11 +26,11 @@ export const bannerService = {
     bannerRepository.save(banner);
   },
 
-  list() {
+  list(): Banner[] {
     return bannerRepository.findAll();
   },
 
-  remove(id: string): boolean {
+  remove(id: BannerId): boolean {
     return bannerRepository.delete(id);
   }
 };

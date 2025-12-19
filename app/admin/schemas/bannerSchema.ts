@@ -1,8 +1,13 @@
 import * as z from "zod";
 
-export type BannerFormData = z.infer<typeof bannerSchema>;
-
 const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
+const timeToMinutes = (time: string): number => {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
+};
+
+export type BannerFormData = z.infer<typeof bannerSchema>;
 
 export const bannerSchema = z
   .object({
@@ -14,11 +19,23 @@ export const bannerSchema = z
       message: "Informe uma URL válida de imagem",
     }),
 
-    startTime: z.string().optional(),
-    endTime: z.string().optional(),
+    startTime: z.string()
+      .optional()
+      .refine((val) => !val || timeRegex.test(val), {
+        message: "Horário deve estar no formato HH:MM (ex: 09:30)",
+      }),
+
+    endTime: z.string()
+      .optional()
+      .refine((val) => !val || timeRegex.test(val), {
+        message: "Horário deve estar no formato HH:MM (ex: 18:00)",
+      }),
   })
   .refine(
-    (data) => !data.startTime || !data.endTime || data.startTime < data.endTime,
+    (data) => {
+      if (!data.startTime || !data.endTime) return true;
+      return timeToMinutes(data.startTime) < timeToMinutes(data.endTime);
+    },
     {
       message: "O horário final deve ser maior que o horário inicial",
       path: ["endTime"],

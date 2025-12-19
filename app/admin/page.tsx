@@ -3,29 +3,22 @@
 import { useEffect, useState } from "react";
 import BannerForm from "./components/BannerForm";
 import BannerList from "./components/BannerList";
-
-interface Banner {
-  id: string;
-  url: string;
-  image: string;
-  startTime?: string;
-  endTime?: string;
-}
+import { Banner, BannerId } from "@/lib/banner.types";
 
 export default function AdminPage() {
   const [banners, setBanners] = useState<Banner[]>([]);
 
   async function loadBanners() {
     const res = await fetch("/api/banners");
-    const data = await res.json();
-    setBanners(data);
+    const data: Banner[] = await res.json();
+    setBanners(data as Banner[]);
   }
 
   useEffect(() => {
     loadBanners();
   }, []);
 
-  async function deleteBanner(id: string) {
+  async function deleteBanner(id: BannerId) {
     await fetch(`/api/banners?id=${id}`, { method: "DELETE" });
     loadBanners();
   }

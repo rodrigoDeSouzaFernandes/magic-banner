@@ -1,4 +1,4 @@
-import { Banner } from "./banner.types";
+import { Banner, BannerId } from "./banner.types";
 import fs from "fs";
 import path from "path";
 
@@ -18,13 +18,13 @@ export const bannerRepository = {
     return readFile();
   },
 
-  save(banner: Banner) {
+  save(banner: Banner): void {
     const banners = readFile();
     banners.push(banner);
     writeFile(banners);
   },
 
-  delete(id: string): boolean {
+  delete(id: BannerId): boolean {
     const banners = readFile();
     const filtered = banners.filter((b) => b.id !== id);
 
