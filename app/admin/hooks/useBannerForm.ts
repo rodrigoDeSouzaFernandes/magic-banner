@@ -7,7 +7,11 @@ import { toast } from "sonner";
 
 type TimeInputName = "startTime" | "endTime";
 
-export default function useBannerForm() {
+type UseBannerFormProps = {
+  loadBanners: () => void;
+};
+
+export default function useBannerForm({ loadBanners }: UseBannerFormProps) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<BannerFormData>({
@@ -32,6 +36,8 @@ export default function useBannerForm() {
           throw new Error(data.error || "Erro desconhecido");
         }
 
+        await loadBanners();
+
         toast.success("Banner criado com sucesso");
       })
       .catch((error) => {
@@ -53,5 +59,5 @@ export default function useBannerForm() {
     });
   };
 
-  return { form, onSubmit, onInvalidTime };
+  return { form, onSubmit, onInvalidTime, loading };
 }

@@ -1,7 +1,6 @@
 import { Banner } from "@/lib/banner.types";
 import {
   Card,
-  CardHeader,
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
@@ -47,7 +46,7 @@ export default function BannerList({ banners, deleteBanner }: BannerListProps) {
               </Button>
             </CardFooter>
             <div className="col-span-2">
-              <BannerPreview image={banner.image} />
+              <BannerPreview image={banner.image} label="Mostrar Banner" />
             </div>
           </Card>
         ))}

@@ -12,13 +12,16 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Loader2, LoaderCircle } from "lucide-react";
 
 type BannerFormProps = {
   loadBanners: () => void;
 };
 
 export default function BannerForm({ loadBanners }: BannerFormProps) {
-  const { form, onSubmit, onInvalidTime } = useBannerForm();
+  const { form, onSubmit, onInvalidTime, loading } = useBannerForm({
+    loadBanners,
+  });
 
   const banner = form.watch("image");
 
@@ -97,8 +100,19 @@ export default function BannerForm({ loadBanners }: BannerFormProps) {
             />
           </div>
 
-          <Button type="submit" className="ml-auto">
-            Salvar Banner
+          <Button
+            disabled={loading}
+            aria-disabled={loading}
+            type="submit"
+            className="ml-auto min-w-28"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="animate-spin" /> Salvando...{" "}
+              </>
+            ) : (
+              "Salvar Banner"
+            )}
           </Button>
         </form>
       </Form>

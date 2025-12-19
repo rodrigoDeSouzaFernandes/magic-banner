@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { useImagePreview } from "../hooks/useImagePreview";
 
-export function BannerPreview({ image }: { image: string }) {
+export function BannerPreview({
+  image,
+  label = "Pré-vizualizar Banner",
+}: {
+  image: string;
+  label?: string;
+}) {
   const [visible, setVisible] = useState(false);
   const isImageValid = useImagePreview(image);
 
@@ -16,7 +22,7 @@ export function BannerPreview({ image }: { image: string }) {
         aria-expanded={visible}
         aria-controls="banner-preview"
       >
-        {visible ? "Ocultar banner" : "Pré-visualizar banner"}
+        {visible ? "Ocultar banner" : label}
       </button>
 
       {visible && (
