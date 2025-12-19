@@ -28,7 +28,7 @@ export const bannerRepository = {
     const banners = readFile();
     const filtered = banners.filter((b) => b.id !== id);
 
-    if (filtered.length < banners.length) {
+    if (filtered.length === banners.length) {
       return false;
     }
 
