@@ -24,8 +24,16 @@ export const bannerRepository = {
     writeFile(banners);
   },
 
-  delete(id: string) {
-    const banners = readFile().filter(b => b.id !== id);
-    writeFile(banners);
-  }
+  delete(id: string): boolean {
+    const banners = readFile();
+    const filtered = banners.filter((b) => b.id !== id);
+
+    if (filtered.length < banners.length) {
+      return false;
+    }
+
+    writeFile(filtered);
+
+    return true;
+  },
 };

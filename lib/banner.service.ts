@@ -30,7 +30,7 @@ export const bannerService = {
     return bannerRepository.findAll();
   },
 
-  remove(id: string) {
-    bannerRepository.delete(id);
+  remove(id: string): boolean {
+    return bannerRepository.delete(id);
   }
 };
