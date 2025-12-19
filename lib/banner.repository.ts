@@ -1,4 +1,4 @@
-import { Banner, BannerId } from "./banner.types";
+import { Banner, BannerId, IBannerRepository } from "./banner.types";
 import fs from "fs";
 import path from "path";
 
@@ -13,16 +13,16 @@ function writeFile(data: Banner[]) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
 
-export const bannerRepository = {
+export class JsonBannerRepository implements IBannerRepository {
   findAll(): Banner[] {
     return readFile();
-  },
+  }
 
   save(banner: Banner): void {
     const banners = readFile();
     banners.push(banner);
     writeFile(banners);
-  },
+  }
 
   delete(id: BannerId): boolean {
     const banners = readFile();
@@ -33,7 +33,8 @@ export const bannerRepository = {
     }
 
     writeFile(filtered);
-
     return true;
-  },
-};
+  }
+}
+
+export const bannerRepository = new JsonBannerRepository();

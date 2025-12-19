@@ -1,7 +1,7 @@
 import { bannerSchema, type BannerFormData } from "../schemas/bannerSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { bannerApi } from "../services/banner.api";
+import { bannerApi, convertFormDataToRequest } from "../services/banner.api";
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 import { TimeInputName, UseBannerFormProps } from "../types";
@@ -22,8 +22,10 @@ export default function useBannerForm({ loadBanners }: UseBannerFormProps) {
   const onSubmit = async (value: BannerFormData) => {
     setLoading(true);
 
+    const requestData = convertFormDataToRequest(value);
+
     await bannerApi
-      .create(value)
+      .create(requestData)
       .then(async (res) => {
         const data = await res.json();
 
