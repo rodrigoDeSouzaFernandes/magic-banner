@@ -20,3 +20,8 @@ export type BannerPreviewProps = {
   image: string;
   label?: string;
 };
+
+export type BannerCardProps = {
+  banner: Banner;
+  deleteBanner: (id: BannerId) => void;
+};
