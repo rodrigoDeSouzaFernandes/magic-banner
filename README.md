@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Magic Banner Plugin
 
-## Getting Started
+Este projeto é plugin desenvolvido com **Next.js 14+**, que permite criar e exibir banners personalizados dinamicamente em páginas de e-commerce com base na URL da página e, opcionalmente, no horário de exibição.
 
-First, run the development server:
+A ideia é que qualquer loja possa adicionar banners dinâmicos apenas importando um script público, sem precisar alterar o frontend principal.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Tecnologias
+
+- **Next.js** (App Router, API Routes)
+- **TypeScript**
+- **Supabase** (PostgreSQL + Storage)
+- **React**
+- **Vercel** (deploy)
+
+---
+
+## Funcionalidades
+
+### Painel Administrativo
+
+- Criar, listar e excluir banners.
+- Cada banner possui:
+  - URL da página de destino
+  - Imagem do banner (upload ou link)
+  - Horário de exibição opcional (ex.: 08:00 às 12:00)
+
+### API de Banners
+
+- `GET /api/banners?url=<url>` retorna o banner ativo para a URL.
+- `POST /api/banners` cria um novo banner.
+- `DELETE /api/banners?id=<id>` remove um banner existente.
+
+### Script Embutível
+
+- Localizado em `/public/magic-banner.js`.
+- Captura a URL da página automaticamente.
+- Faz requisição à API para buscar o banner correspondente.
+- Exibe o banner dinamicamente no topo da página.
+- Suporta animações de entrada e hover.
+
+---
+
+## Decisões técnicas
+
+1. **Framework e bibliotecas**
+
+   - Next.js para API Routes e deploy simplificado na Vercel.
+   - Supabase para persistência de dados.
+   - TypeScript para maior segurança e clareza de tipos.
+
+2. **Estratégia de persistência**
+
+   - Tabela `banners` com campos: `id`, `url`, `image`, `startTime`, `endTime`.
+   - Repository pattern: `SupabaseBannerRepository` isolando consultas ao banco.
+   - Serviço `BannerService` para encapsular regras de negócio, incluindo validação de horário.
+
+3. **Estrutura de pastas**
+
+   A estrutura foi pensada para manter **os arquivos mais próximos de sua responsabilidade**, tornando a organização limpa e fácil de manter.
+   Cada módulo tem seu escopo claro, o que facilita manutenção, testes e deploy.
+
+4. **Lógica de exibição condicional**
+
+- Banner só é exibido se estiver dentro do intervalo `startTime` e `endTime`.
+- O script embutível busca banners pelo URL da página.
+- A lógica foi feita para ser leve: primeiro busca os banners correspondentes e depois filtra pelo horário.
+- Animações suaves (`fade in` + `slide down`) e hover são aplicadas apenas quando o banner é exibido.
+
+5. **Desafios e soluções**
+
+- Problema: Persistência em arquivo JSON não funcionou bem com deploy na Vercel.  
+  Solução: migração para utilização do Supabase.
+
+---
+
+## Como testar o script embutível
+
+- Acesse a aplicação e cadastre um banner para a URL desejada.
+- Adicione o seguinte script na página correspondente à URL (página que contém a URL exata):
+
+```html
+<script src="https://magic-banner-plugin.vercel.app/magic-banner.js"></script>
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
