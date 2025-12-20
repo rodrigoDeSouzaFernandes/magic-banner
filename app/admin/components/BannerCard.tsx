@@ -5,7 +5,7 @@ import { BannerCardProps } from "../types";
 import { Trash2 } from "lucide-react";
 import { DeleteBannerDialog } from "./DeleteBannerDialog";
 import { useState } from "react";
-import { BannerId } from "@/lib/banner.types";
+import { BannerId } from "@/lib/banner/banner.types";
 
 export default function BannerCard({ banner, deleteBanner }: BannerCardProps) {
   const [loading, setLoading] = useState<boolean>(false);

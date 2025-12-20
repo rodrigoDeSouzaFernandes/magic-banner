@@ -1,7 +1,7 @@
 export type BannerId = string & { readonly __brand: "BannerId" };
 export type Url = string & { readonly __brand: "Url" };
 export type ImageUrl = string & { readonly __brand: "ImageUrl" };
-export type TimeString = string & { readonly __brand: "TimeString" }; // Formato HH:MM
+export type TimeString = string & { readonly __brand: "TimeString" };
 
 export interface Banner {
   id: BannerId;

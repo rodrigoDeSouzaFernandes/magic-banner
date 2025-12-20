@@ -1,4 +1,4 @@
-import { Banner, BannerId, CreateBannerRequest } from "@/lib/banner.types";
+import { Banner, BannerId, CreateBannerRequest } from "@/lib/banner/banner.types";
 
 export type TimeInputName = "startTime" | "endTime";
 

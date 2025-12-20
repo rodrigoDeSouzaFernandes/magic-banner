@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { bannerService } from "@/lib/banner.service";
+import { bannerService } from "@/lib/banner/banner.service";
 import { randomUUID } from "crypto";
 import { corsHeaders } from "@/lib/cors";
-import { Url, BannerId, CreateBannerRequest, ApiError } from "@/lib/banner.types";
+import { Url, BannerId, CreateBannerRequest, ApiError } from "@/lib/banner/banner.types";
 
 export async function GET(request: Request) {
   try {

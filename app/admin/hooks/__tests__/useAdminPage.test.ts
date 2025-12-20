@@ -2,7 +2,7 @@ import { renderHook, act, waitFor } from "@testing-library/react";
 import { useAdminPage } from "../useAdminPage";
 import { bannerApi } from "../../services/banner.api";
 import { toast } from "sonner";
-import { Banner, BannerId, ImageUrl, Url } from "@/lib/banner.types";
+import { Banner, BannerId, ImageUrl, Url } from "@/lib/banner/banner.types";
 
 jest.mock("../../services/banner.api");
 jest.mock("sonner");

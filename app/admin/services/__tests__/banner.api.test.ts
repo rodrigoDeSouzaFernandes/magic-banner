@@ -1,5 +1,5 @@
 import { BannerApi } from "../banner.api";
-import { Banner, BannerId, Url, ImageUrl } from "@/lib/banner.types";
+import { Banner, BannerId, Url, ImageUrl } from "@/lib/banner/banner.types";
 
 describe("BannerApi service", () => {
   const api = new BannerApi();

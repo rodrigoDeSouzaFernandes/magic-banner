@@ -3,7 +3,7 @@ import {
   IBannerApi,
   BannerId,
   Banner,
-} from "@/lib/banner.types";
+} from "@/lib/banner/banner.types";
 
 export class BannerApi implements IBannerApi {
   async create(data: CreateBannerRequest): Promise<void> {

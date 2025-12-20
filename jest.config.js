@@ -9,5 +9,8 @@ module.exports = {
     ...tsJestTransformCfg,
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
-  setupFilesAfterEnv: ["@testing-library/jest-dom"], // <- corrigido
+  setupFilesAfterEnv: ["@testing-library/jest-dom"],
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/$1",
+  },
 };

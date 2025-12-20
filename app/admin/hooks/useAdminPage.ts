@@ -1,4 +1,4 @@
-import { Banner, BannerId, CreateBannerRequest } from "@/lib/banner.types";
+import { Banner, BannerId, CreateBannerRequest } from "@/lib/banner/banner.types";
 import { useEffect, useState } from "react";
 import { bannerApi } from "../services/banner.api";
 import { toast } from "sonner";

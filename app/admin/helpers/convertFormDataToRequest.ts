@@ -3,7 +3,7 @@ import {
   ImageUrl,
   TimeString,
   Url,
-} from "@/lib/banner.types";
+} from "@/lib/banner/banner.types";
 import { BannerFormData } from "../schemas/bannerSchema";
 
 export function convertFormDataToRequest(
