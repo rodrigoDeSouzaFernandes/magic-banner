@@ -7,17 +7,34 @@ import {
   IBannerRepository,
 } from "./banner.types";
 
-function isWithinTime(banner: Banner): boolean {
-  if (!banner.startTime || !banner.endTime) return true;
+function isWithinTime(
+  banner: Banner,
+  timeZone: string = "America/Sao_Paulo"
+): boolean {
+  const startTime = banner?.startTime || "00:00";
+  const endTime = banner?.endTime || "23:59";
 
   const now = new Date();
-  const current = now.getHours() * 60 + now.getMinutes();
 
-  const [sh, sm] = banner.startTime.split(":").map(Number);
-  const [eh, em] = banner.endTime.split(":").map(Number);
+  const formatter = new Intl.DateTimeFormat("pt-BR", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false,
+    timeZone,
+  });
+
+  const [{ value: hour }, , { value: minute }] = formatter.formatToParts(now);
+  const current = Number(hour) * 60 + Number(minute);
+
+  const [sh, sm] = startTime.split(":").map(Number);
+  const [eh, em] = endTime.split(":").map(Number);
 
   const start = sh * 60 + sm;
   const end = eh * 60 + em;
+
+  if (end < start) {
+    return current >= start || current <= end;
+  }
 
   return current >= start && current <= end;
 }
@@ -26,7 +43,6 @@ export class BannerService implements IBannerService {
   constructor(private repository: IBannerRepository) {}
 
   async getByUrl(url: Url): Promise<Banner | null> {
-    console.log("buscando banner por url:", url);
     const banner = await (this.repository as any).findByUrl(url);
     if (!banner) return null;
 
