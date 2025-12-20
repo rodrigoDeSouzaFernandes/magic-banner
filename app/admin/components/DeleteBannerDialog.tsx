@@ -51,7 +51,7 @@ export function DeleteBannerDialog({
 
           <AlertDialogAction
             onClick={onConfirm}
-            className="bg-destructive hover:bg-destructive/90 text-foreground"
+            className="bg-destructive hover:bg-destructive/90 text-white"
             disabled={loading}
             aria-disabled={loading}
           >
