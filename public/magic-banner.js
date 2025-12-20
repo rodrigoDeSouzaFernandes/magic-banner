@@ -6,8 +6,9 @@
       `http://localhost:3000/api/banners?url=${encodeURIComponent(url)}`
     );
 
+    if (!res.ok) return;
+
     const banner = await res.json();
-    if (!banner) return;
 
     const container = document.createElement("div");
     container.style.opacity = "0";

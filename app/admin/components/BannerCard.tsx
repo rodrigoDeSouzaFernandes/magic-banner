@@ -23,7 +23,7 @@ export default function BannerCard({ banner, deleteBanner }: BannerCardProps) {
     >
       <CardContent className="space-y-1 p-0 overflow-hidden ">
         <p className="text-sm font-medium line-clamp-1">{banner.url}</p>
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-foreground/70">
           {banner.startTime && banner.endTime
             ? `Visível das ${banner.startTime} às ${banner.endTime}`
             : "Sempre visível"}

@@ -16,7 +16,7 @@ export function BannerPreview({
       <button
         type="button"
         onClick={() => setVisible((v) => !v)}
-        className="text-gray-600 hover:underline text-sm font-medium cursor-pointer"
+        className="hover:underline text-sm font-medium cursor-pointer text-foreground/70"
         aria-expanded={visible}
         aria-controls="banner-preview"
       >

@@ -13,9 +13,9 @@ export default function AdminPage() {
     useAdminPage();
 
   return (
-    <main className="min-h-screen bg-background p-4 sm:p-8 text-gray-900">
-      <div className="mx-auto max-w-4xl space-y-8">
-       <Header/>
+    <main className="min-h-screen bg-background  p-4 sm:p-8 text-gray-900">
+      <div className="mx-auto max-w-4xl space-y-8 text-foreground">
+        <Header />
         <BannerForm onSubmitForm={createBanner} />
         {bannerListLoading ? (
           <BannerListSkeleton />
