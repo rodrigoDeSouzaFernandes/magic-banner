@@ -1,9 +1,9 @@
 import { bannerSchema, type BannerFormData } from "../schemas/bannerSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { convertFormDataToRequest } from "../services/banner.api";
 import { FormEvent, useState } from "react";
 import { TimeInputName, UseBannerFormProps } from "../types";
+import { convertFormDataToRequest } from "../helpers/convertFormDataToRequest";
 
 export default function useBannerForm({
   onSubmitForm,

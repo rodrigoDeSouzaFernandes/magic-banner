@@ -1,5 +1,9 @@
-import { BannerFormData } from "../schemas/bannerSchema";
-import { CreateBannerRequest, Url, ImageUrl, TimeString, IBannerApi, BannerId, Banner } from "@/lib/banner.types";
+import {
+  CreateBannerRequest,
+  IBannerApi,
+  BannerId,
+  Banner,
+} from "@/lib/banner.types";
 
 export class BannerApi implements IBannerApi {
   async create(data: CreateBannerRequest): Promise<void> {
@@ -35,15 +39,6 @@ export class BannerApi implements IBannerApi {
       throw new Error(body.error ?? "Erro ao excluir banner");
     }
   }
-}
-
-export function convertFormDataToRequest(value: BannerFormData): CreateBannerRequest {
-  return {
-    url: value.url as Url,
-    image: value.image as ImageUrl,
-    startTime: value.startTime as TimeString | undefined,
-    endTime: value.endTime as TimeString | undefined,
-  };
 }
 
 export const bannerApi = new BannerApi();
