@@ -13,6 +13,7 @@ export function ThemeToggle() {
       size="icon"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       aria-label="Alternar tema"
+      className="text-foreground bg-card"
     >
       {theme === "dark" ? (
         <Sun className="h-5 w-5" />

@@ -23,7 +23,7 @@ export default function BannerForm({ onSubmitForm }: BannerFormProps) {
   const banner = form.watch("image");
 
   return (
-    <section className="rounded-2xl bg-white p-6 shadow">
+    <section className="rounded-2xl bg-card p-6 shadow">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
@@ -31,7 +31,7 @@ export default function BannerForm({ onSubmitForm }: BannerFormProps) {
             name="url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>URL da página</FormLabel>
+                <FormLabel className="text-foreground">URL da página</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="https://loja.com/produto/123"
@@ -48,7 +48,9 @@ export default function BannerForm({ onSubmitForm }: BannerFormProps) {
             name="image"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Imagem do banner</FormLabel>
+                <FormLabel className="text-foreground">
+                  Imagem do banner
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="https://..." {...field} />
                 </FormControl>
@@ -65,9 +67,10 @@ export default function BannerForm({ onSubmitForm }: BannerFormProps) {
               name="startTime"
               render={({ field }) => (
                 <FormItem className="items-start h-min">
-                  <FormLabel>Início</FormLabel>
+                  <FormLabel className="text-foreground">Início</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-foreground"
                       onInvalid={(e) => onInvalidTime(e, "startTime")}
                       type="time"
                       {...field}
@@ -83,9 +86,10 @@ export default function BannerForm({ onSubmitForm }: BannerFormProps) {
               name="endTime"
               render={({ field }) => (
                 <FormItem className="items-start h-min">
-                  <FormLabel>Fim</FormLabel>
+                  <FormLabel className="text-foreground">Fim</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-foreground"
                       onInvalid={(e) => onInvalidTime(e, "endTime")}
                       type="time"
                       {...field}
