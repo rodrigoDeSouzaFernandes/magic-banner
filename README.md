@@ -4,7 +4,8 @@ Este projeto é plugin desenvolvido com **Next.js 14+**, que permite criar e exi
 
 A ideia é que qualquer loja possa adicionar banners dinâmicos apenas importando um script público, sem precisar alterar o frontend principal.
 
----
+![Magic banner](/assets/magic-banner.gif)
+[Magic Banner - Link do Deploy](https://magic-banner-plugin.vercel.app/admin)
 
 ## Tecnologias
 
