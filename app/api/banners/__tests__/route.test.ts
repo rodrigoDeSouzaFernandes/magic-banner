@@ -75,14 +75,14 @@ describe("API /api/banners", () => {
 
     it("returns 500 on unexpected error", async () => {
       (bannerService.list as jest.Mock).mockImplementation(() => {
-        throw new Error("Erro interno");
+        throw new Error("boom");
       });
 
       const request = makeRequest("/api/banners");
       const response = (await GET(request)) as unknown as MockedResponse;
 
       expect(response.status).toBe(500);
-      expect(response.data.error).toContain("Ocorreu um erro");
+      expect(response.data.error).toContain("Erro ao buscar banner");
     });
   });
 
@@ -123,7 +123,7 @@ describe("API /api/banners", () => {
       const response = (await POST(request)) as unknown as MockedResponse;
 
       expect(response.status).toBe(500);
-      expect(response.data.error).toContain("Ocorreu um erro");
+      expect(response.data.error).toContain("Erro ao criar banner");
     });
   });
 
@@ -178,7 +178,7 @@ describe("API /api/banners", () => {
       const response = (await DELETE(request)) as unknown as MockedResponse;
 
       expect(response.status).toBe(500);
-      expect(response.data.error).toContain("Ocorreu um erro");
+      expect(response.data.error).toContain("Erro ao remover banner");
     });
   });
 });

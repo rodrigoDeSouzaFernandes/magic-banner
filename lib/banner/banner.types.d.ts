@@ -7,8 +7,8 @@ export interface Banner {
   id: BannerId;
   url: Url;
   image: ImageUrl;
-  startTime?: TimeString;
-  endTime?: TimeString;
+  startTime?: TimeString | null;
+  endTime?: TimeString | null;
 }
 
 export interface CreateBannerRequest {
@@ -29,16 +29,16 @@ export type BannerWithoutId = Omit<Banner, "id">;
 export type PartialBanner = Partial<Banner>;
 
 export interface IBannerRepository {
-  findAll(): Banner[];
-  save(banner: Banner): void;
-  delete(id: BannerId): boolean;
+  findAll(): Promise<Banner[]>;
+  save(banner: Banner): Promise<void>;
+  delete(id: BannerId): Promise<boolean>;
 }
 
 export interface IBannerService {
-  getByUrl(url: Url): Banner | null;
-  create(banner: Banner): void;
-  list(): Banner[];
-  remove(id: BannerId): boolean;
+  getByUrl(url: Url): Promise<Banner | null>;
+  create(banner: Banner): Promise<void>;
+  list(): Promise<Banner[]>;
+  remove(id: BannerId): Promise<boolean>;
 }
 
 export interface IBannerApi {

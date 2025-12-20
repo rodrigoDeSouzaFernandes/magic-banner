@@ -1,5 +1,11 @@
-import { Banner, Url, BannerId, IBannerService, IBannerRepository } from "./banner.types";
 import { bannerRepository } from "./banner.repository";
+import {
+  Banner,
+  Url,
+  BannerId,
+  IBannerService,
+  IBannerRepository,
+} from "./banner.types";
 
 function isWithinTime(banner: Banner): boolean {
   if (!banner.startTime || !banner.endTime) return true;
@@ -19,20 +25,20 @@ function isWithinTime(banner: Banner): boolean {
 export class BannerService implements IBannerService {
   constructor(private repository: IBannerRepository) {}
 
-  getByUrl(url: Url): Banner | null {
-    const banners = this.repository.findAll();
-    return banners.find(b => b.url === url && isWithinTime(b)) ?? null;
+  async getByUrl(url: Url): Promise<Banner | null> {
+    const banners = await this.repository.findAll();
+    return banners.find((b) => b.url === url && isWithinTime(b)) ?? null;
   }
 
-  create(banner: Banner): void {
-    this.repository.save(banner);
+  async create(banner: Banner): Promise<void> {
+    await this.repository.save(banner);
   }
 
-  list(): Banner[] {
+  async list(): Promise<Banner[]> {
     return this.repository.findAll();
   }
 
-  remove(id: BannerId): boolean {
+  async remove(id: BannerId): Promise<boolean> {
     return this.repository.delete(id);
   }
 }

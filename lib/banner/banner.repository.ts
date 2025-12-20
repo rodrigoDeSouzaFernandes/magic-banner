@@ -1,40 +1,37 @@
+import { supabaseServer } from "@/lib/supabase/server";
 import { Banner, BannerId, IBannerRepository } from "./banner.types";
-import fs from "fs";
-import path from "path";
 
-const filePath = path.join(process.cwd(), "banners.json");
+export class SupabaseBannerRepository implements IBannerRepository {
+  async findAll(): Promise<Banner[]> {
+    const { data, error } = await supabaseServer.from("banners").select("*");
 
-function readFile(): Banner[] {
-  if (!fs.existsSync(filePath)) return [];
-  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-}
-
-function writeFile(data: Banner[]) {
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-}
-
-export class JsonBannerRepository implements IBannerRepository {
-  findAll(): Banner[] {
-    return readFile();
-  }
-
-  save(banner: Banner): void {
-    const banners = readFile();
-    banners.push(banner);
-    writeFile(banners);
-  }
-
-  delete(id: BannerId): boolean {
-    const banners = readFile();
-    const filtered = banners.filter((b) => b.id !== id);
-
-    if (filtered.length === banners.length) {
-      return false;
+    if (error) {
+      throw error;
     }
 
-    writeFile(filtered);
-    return true;
+    return data as Banner[];
+  }
+
+  async save(banner: Banner): Promise<void> {
+    const { error } = await supabaseServer.from("banners").insert(banner);
+
+    if (error) {
+      throw error;
+    }
+  }
+
+  async delete(id: BannerId): Promise<boolean> {
+    const { error, count } = await supabaseServer
+      .from("banners")
+      .delete({ count: "exact" })
+      .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    return (count ?? 0) > 0;
   }
 }
 
-export const bannerRepository = new JsonBannerRepository();
+export const bannerRepository = new SupabaseBannerRepository();
