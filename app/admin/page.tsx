@@ -1,6 +1,5 @@
 "use client";
 
-import { ThemeToggle } from "@/components/ThemeToogle";
 import BannerForm from "./components/BannerForm";
 import BannerList from "./components/BannerList";
 
