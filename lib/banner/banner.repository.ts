@@ -1,5 +1,5 @@
 import { supabaseServer } from "@/lib/supabase/server";
-import { Banner, BannerId, IBannerRepository } from "./banner.types";
+import { Banner, BannerId, IBannerRepository, Url } from "./banner.types";
 
 export class SupabaseBannerRepository implements IBannerRepository {
   async findAll(): Promise<Banner[]> {
@@ -10,6 +10,24 @@ export class SupabaseBannerRepository implements IBannerRepository {
     }
 
     return data as Banner[];
+  }
+
+  async findByUrl(url: Url): Promise<Banner | null> {
+    const { data, error } = await supabaseServer
+      .from("banners")
+      .select("*")
+      .eq("url", url)
+      .limit(1)
+      .single();
+
+    if (error) {
+      console.error("Erro ao buscar banner pelo URL:", error);
+      return null;
+    }
+
+    if (!data) return null;
+
+    return data as Banner;
   }
 
   async save(banner: Banner): Promise<void> {

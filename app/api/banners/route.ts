@@ -17,7 +17,7 @@ export async function GET(request: Request) {
     const banner = await service.getByUrl(urlParam as any);
     if (!banner) {
       return NextResponse.json(
-        { error: "Nenhum banner encontrado", status: 404 },
+        { error: `Nenhum banner encontrado ${urlParam}`, status: 404 },
         { status: 404, headers: corsHeaders }
       );
     }

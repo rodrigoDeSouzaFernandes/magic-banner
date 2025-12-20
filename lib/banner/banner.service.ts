@@ -26,8 +26,11 @@ export class BannerService implements IBannerService {
   constructor(private repository: IBannerRepository) {}
 
   async getByUrl(url: Url): Promise<Banner | null> {
-    const banners = await this.repository.findAll();
-    return banners.find((b) => b.url === url && isWithinTime(b)) ?? null;
+    console.log("buscando banner por url:", url);
+    const banner = await (this.repository as any).findByUrl(url);
+    if (!banner) return null;
+
+    return isWithinTime(banner) ? banner : null;
   }
 
   async create(banner: Banner): Promise<void> {

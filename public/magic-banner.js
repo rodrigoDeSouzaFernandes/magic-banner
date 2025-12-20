@@ -3,9 +3,7 @@
 
   try {
     const res = await fetch(
-      `https://magic-banner-plugin.vercel.app/api/banners?url=${encodeURIComponent(
-        url
-      )}`
+      `https://magic-banner-plugin.vercel.app/api/banners?url=${encodeURIComponent(url)}`
     );
 
     if (!res.ok) return;
