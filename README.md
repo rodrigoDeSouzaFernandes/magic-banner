@@ -1,6 +1,6 @@
 # Magic Banner Plugin
 
-Este projeto é plugin desenvolvido com **Next.js 14+**, que permite criar e exibir banners personalizados dinamicamente em páginas de e-commerce com base na URL da página e, opcionalmente, no horário de exibição.
+Este projeto é plugin desenvolvido com **Next.js 16**, que permite criar e exibir banners personalizados dinamicamente em páginas de e-commerce com base na URL da página e, opcionalmente, no horário de exibição.
 
 A ideia é que qualquer loja possa adicionar banners dinâmicos apenas importando um script público, sem precisar alterar o frontend principal.
 
